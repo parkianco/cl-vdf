@@ -3,7 +3,7 @@
 (asdf:defsystem #:cl-vdf
   :description "Standalone Verifiable Delay Functions (VDF) implementation"
   :version "1.0.0"
-  :author "CLPIC Project"
+  :author "Parkian Company LLC"
   :license "BSD-3-Clause"
   :depends-on ()
   :serial t
