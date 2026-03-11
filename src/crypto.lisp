@@ -118,8 +118,14 @@
              (t2 (logand #xFFFFFFFF
                          (+ (sha256-big-sigma0 a)
                             (sha256-maj a b c)))))
-        (setf h g g f f e (logand #xFFFFFFFF (+ d t1))
-              d c c b b a a (logand #xFFFFFFFF (+ t1 t2)))))
+        (setf h g
+              g f
+              f e
+              e (logand #xFFFFFFFF (+ d t1))
+              d c
+              c b
+              b a
+              a (logand #xFFFFFFFF (+ t1 t2)))))
     (setf (aref state 0) (logand #xFFFFFFFF (+ (aref state 0) a)))
     (setf (aref state 1) (logand #xFFFFFFFF (+ (aref state 1) b)))
     (setf (aref state 2) (logand #xFFFFFFFF (+ (aref state 2) c)))

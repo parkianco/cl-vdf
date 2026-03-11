@@ -207,8 +207,8 @@
    Returns a WESOLOWSKI-PROOF structure."
   (let* ((l (wesolowski-hash-to-prime input output iterations params))
          (q (wesolowski-compute-quotient-exponent iterations l))
-         (pi (wesolowski-group-expt input q params)))
-    (make-wesolowski-proof pi l)))
+         (pi-witness (wesolowski-group-expt input q params)))
+    (make-wesolowski-proof pi-witness l)))
 
 (defun wesolowski-evaluate-with-proof (input iterations params)
   "Evaluate Wesolowski VDF and generate proof.
@@ -251,9 +251,9 @@
    Verification checks: x^r * pi^l = y
    where r = 2^T mod l and pi is the proof witness."
   (handler-case
-      (let* ((pi (if (wesolowski-proof-p proof)
-                     (wesolowski-proof-witness proof)
-                     (first (vdf-proof-witnesses proof))))
+      (let* ((pi-witness (if (wesolowski-proof-p proof)
+                             (wesolowski-proof-witness proof)
+                             (first (vdf-proof-witnesses proof))))
              (l (if (wesolowski-proof-p proof)
                     (wesolowski-proof-challenge proof)
                     (first (vdf-proof-challenges proof)))))
@@ -263,9 +263,9 @@
             (return-from wesolowski-verify nil)))
         ;; Compute r = 2^T mod l
         (let ((r (wesolowski-compute-remainder iterations l)))
-          ;; Verify: x^r * pi^l = y
+          ;; Verify: x^r * pi-witness^l = y
           (let* ((x-to-r (wesolowski-group-expt input r params))
-                 (pi-to-l (wesolowski-group-expt pi l params))
+                 (pi-to-l (wesolowski-group-expt pi-witness l params))
                  (product (wesolowski-group-multiply x-to-r pi-to-l params)))
             (group-element-equal product output))))
     (error (e)
