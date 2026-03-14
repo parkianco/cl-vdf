@@ -1,14 +1,11 @@
-# cl-vdf
+# Vdf
 
-Standalone Verifiable Delay Functions (VDF) implementation with **zero external dependencies**.
+Utility library providing specialized functionality for Common Lisp applications.
 
 ## Features
 
-- **Wesolowski VDF**: Efficient proof construction
-- **Pietrzak VDF**: Halving-based proofs
-- **RSA groups**: Class group alternative
-- **Proof verification**: Fast proof checking
-- **Pure Common Lisp**: No CFFI, no external libraries
+- Core functionality implementation
+- Pure Common Lisp (zero external dependencies)
 
 ## Installation
 
@@ -16,40 +13,12 @@ Standalone Verifiable Delay Functions (VDF) implementation with **zero external 
 (asdf:load-system :cl-vdf)
 ```
 
-## Quick Start
+## Usage
 
 ```lisp
-(use-package :cl-vdf)
-
-;; Generate VDF parameters
-(let ((params (vdf-setup :bits 2048)))
-  ;; Compute VDF (slow - intentional delay)
-  (multiple-value-bind (output proof)
-      (vdf-eval params *input* :time 1000000)
-    ;; Verify (fast)
-    (vdf-verify params *input* output proof :time 1000000)))
+;; Example usage
+(main-function)
 ```
-
-## API Reference
-
-### Setup
-
-- `(vdf-setup &key bits)` - Generate VDF parameters
-- `(vdf-setup-from-seed seed &key bits)` - Deterministic setup
-
-### Evaluation
-
-- `(vdf-eval params input &key time)` - Compute VDF (slow)
-- `(vdf-eval-with-proof params input &key time)` - Compute with proof
-
-### Verification
-
-- `(vdf-verify params input output proof &key time)` - Verify proof (fast)
-
-### Utilities
-
-- `(vdf-hash-to-group params data)` - Hash to group element
-- `(vdf-serialize-proof proof)` - Serialize proof
 
 ## Testing
 
@@ -57,8 +26,14 @@ Standalone Verifiable Delay Functions (VDF) implementation with **zero external 
 (asdf:test-system :cl-vdf)
 ```
 
+## API
+
+- `main-function - Primary function for core functionality`
+
 ## License
 
-BSD-3-Clause
+BSD-3-Clause License - See LICENSE file for details.
 
+---
 Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause
